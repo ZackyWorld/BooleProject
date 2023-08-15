@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .banner {
+    text-align: center;
+  }
+  
+  .botones {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .botones a {
+    display: inline-block;
+    margin: 10px;
+  }
+  /* styles.css */
+
+/* Centrar el contenido de la clase "banner" */
+.banner {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Centrar el contenido de la clase "botones" */
+  .botones {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Estilo adicional para los enlaces */
+  .botones a {
+    margin: 10px; /* Puedes ajustar este valor según el espacio deseado entre los botones */
+  }
+  
+
+  .parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+  
+  .div1 { 
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  
+  .div2 { 
+    grid-area: 1 / 2 / 2 / 6;
+  }
+  
+  #paginaPrincipalButton {
+    display: block;
+    width: 100%; /* Ajustar el ancho del botón al 100% del contenedor */
+  }
+  
+  #paginaPrincipalButton img {
+    width: 100%; /* Ajustar el ancho de la imagen dentro del botón al 100% del botón */
+  }
+  
+  img {
+    float: right;
+    margin-left: 15px; /* Agrega un margen a la izquierda para separar el texto de la imagen */
+  }

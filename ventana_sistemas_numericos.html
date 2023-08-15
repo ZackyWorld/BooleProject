@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistemas Numericos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        /* Tu estilo personalizado si lo tienes */
+        /* Estilos para el contenedor que envuelve la imagen y el banner */
+        .contenedor-flex {
+            display: flex;
+            align-items: center; /* Alinea verticalmente los elementos en el centro */
+        }
+
+        /* Estilos para la imagen */
+        .imagen {
+            width: 80px;
+            height: 80px;
+            cursor: pointer; /* Agrega el cursor de la mano para indicar que es un enlace */
+        }
+
+        /* Estilos para el banner */
+        .banner {
+            width: 2560px;
+            height: 80px;
+        }
+
+        /* Estilos para el botón de copiar */
+        .copiar-btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="text-center">
+        <!-- Contenedor que envuelve la imagen y el banner -->
+        <div class="contenedor-flex mb-3">
+            <!-- Imagen redimensionada con evento onclick para redirigir a ventana_principal.html -->
+            <img class="imagen" src="PaginaPrincipalDefinitiva.png" alt="Imagen" onclick="redirigirAVentanaPrincipal()">
+
+            <!-- Banner redimensionado -->
+            <img class="banner" src="bannerprincipal.png" alt="Banner">
+            <!-- Aquí puedes agregar contenido dentro del banner si lo deseas -->
+        </div>
+
+        <!-- Artículo que contiene el resto del contenido centrado -->
+        <article>
+            <div class="title">Ingresa las Numeraciones a Convertir:</div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="combobox1">Convertir de:</label>
+                            <select class="form-control" id="combobox1">
+                                <option value="binario">Binario</option>
+                                <option value="decimal">Decimal</option>
+                                <option value="hexadecimal">Hexadecimal</option>
+                                <option value="octal">Octal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="combobox2">A:</label>
+                            <select class="form-control" id="combobox2">
+                                <option value="binario">Binario</option>
+                                <option value="decimal">Decimal</option>
+                                <option value="hexadecimal">Hexadecimal</option>
+                                <option value="octal">Octal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="input1">Entrada de Texto 1:</label>
+                            <div>
+                                <textarea class="form-control" id="input1" rows="4" cols="50"></textarea>
+                                <button class="btn btn-secondary copiar-btn" id="copiarInput1">Copiar al Portapapeles</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input2">Entrada de Texto 2:</label>
+                            <div>
+                                <textarea class="form-control" id="input2" rows="4" cols="50"></textarea>
+                                <button class="btn btn-secondary copiar-btn" id="copiarInput2">Copiar al Portapapeles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary" id="boton">Convertir</button>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Agregar el script de Bootstrap y tu código JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        // Tu código JavaScript aquí
+        function redirigirAVentanaPrincipal() {
+            window.location.href = "ventana_principal.html";
+        }
+
+        function convertirNumeracion(sistemaOrigen, sistemaDestino, valor) {
+            let resultado = "";
+
+            // Verificar si ambos sistemas son binarios
+            if (sistemaOrigen === "binario" && sistemaDestino === "binario") {
+                resultado = valor;
+            } else {
+                // Resto de la lógica de conversión
+                if (sistemaOrigen === "binario") {
+                    if (sistemaDestino === "decimal") {
+                        resultado = parseInt(valor, 2).toString(10);
+                    } else if (sistemaDestino === "hexadecimal") {
+                        resultado = parseInt(valor, 2).toString(16);
+                    } else if (sistemaDestino === "octal") {
+                        resultado = parseInt(valor, 2).toString(8);
+                    }
+                } else if (sistemaOrigen === "decimal") {
+                    if (sistemaDestino === "binario") {
+                        resultado = parseInt(valor, 10).toString(2);
+                    } else if (sistemaDestino === "hexadecimal") {
+                        resultado = parseInt(valor, 10).toString(16);
+                    } else if (sistemaDestino === "octal") {
+                        resultado = parseInt(valor, 10).toString(8);
+                    }
+                } else if (sistemaOrigen === "hexadecimal") {
+                    if (sistemaDestino === "binario") {
+                        resultado = parseInt(valor, 16).toString(2);
+                    } else if (sistemaDestino === "decimal") {
+                        resultado = parseInt(valor, 16).toString(10);
+                    } else if (sistemaDestino === "octal") {
+                        resultado = parseInt(valor, 16).toString(8);
+                    }
+                } else if (sistemaOrigen === "octal") {
+                    if (sistemaDestino === "binario") {
+                        resultado = parseInt(valor, 8).toString(2);
+                    } else if (sistemaDestino === "decimal") {
+                        resultado = parseInt(valor, 8).toString(10);
+                    } else if (sistemaDestino === "hexadecimal") {
+                        resultado = parseInt(valor, 8).toString(16);
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
+        document.getElementById("boton").addEventListener("click", () => {
+            const sistemaOrigen = document.getElementById("combobox1").value;
+            const sistemaDestino = document.getElementById("combobox2").value;
+            const valor = document.getElementById("input1").value;
+
+            const resultado = convertirNumeracion(sistemaOrigen, sistemaDestino, valor);
+
+            document.getElementById("input2").value = resultado;
+        });
+
+        // Función para copiar al portapapeles
+        function copiarAlPortapapeles(id) {
+            const elemento = document.getElementById(id);
+            elemento.select();
+            document.execCommand("copy");
+            alert("Texto copiado al portapapeles");
+        }
+
+        // Agregar los eventos de copiar al botón correspondiente
+        document.getElementById("copiarInput1").addEventListener("click", () => copiarAlPortapapeles("input1"));
+        document.getElementById("copiarInput2").addEventListener("click", () => copiarAlPortapapeles("input2"));
+    </script>
+</body>
+</html>

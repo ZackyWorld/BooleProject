@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Algebra Bool</title>
+    <!-- Agregar el enlace al archivo de estilo de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Tu estilo personalizado si lo tienes */
+        /* Estilos para el contenedor que envuelve la imagen y el banner */
+        .contenedor-flex {
+            display: flex;
+            align-items: center; /* Alinea verticalmente los elementos en el centro */
+        }
+
+        /* Estilos para la imagen */
+        .imagen {
+            width: 80px;
+            height: 80px;
+            cursor: pointer; /* Agrega el cursor de la mano para indicar que es un enlace */
+        }
+
+        /* Estilos para el banner */
+        .banner {
+            width: 2560px;
+            height: 80px;
+        }
+
+        /* Ajustes para el select */
+        .select-half-width {
+            width: 50%; /* Ajustar el ancho */
+            margin: 0 auto; /* Centrar horizontalmente */
+        }
+
+        /* Agregar espaciado entre elementos */
+        .space {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="text-center">
+        <!-- Contenedor que envuelve la imagen y el banner -->
+        <div class="contenedor-flex mb-3">
+            <!-- Imagen redimensionada con evento onclick para redirigir a ventana_principal.html -->
+            <img class="imagen" src="PaginaPrincipalDefinitiva.png" alt="Imagen" onclick="redirigirAVentanaPrincipal()">
+
+            <!-- Banner redimensionado -->
+            <img class="banner" src="bannerprincipal.png" alt="Banner">
+            <!-- Aquí puedes agregar contenido dentro del banner si lo deseas -->
+        </div>
+
+        <!-- Artículo que contiene el resto del contenido centrado -->
+        <article>
+            <label for="numSystem">Tipo de Numeración:</label>
+            <select id="numSystem" class="form-control select-half-width">
+                <option value="binary">Binario</option>
+                <option value="decimal">Decimal</option>
+                <option value="hexadecimal">Hexadecimal</option>
+                <option value="octal">Octal</option>
+            </select>
+            
+            <label for="operation">Operación:</label>
+            <select id="operation" class="form-control select-half-width">
+                <option value="sum">Suma</option>
+                <option value="subtract">Resta</option>
+                <option value="multiply">Multiplicación</option>
+            </select>
+
+            <div class="space"></div> <!-- Espacio entre el select de operación y la tabla -->
+            
+            <table class="table table-bordered table-striped w-auto mx-auto">
+                <tr>
+                    <td><label for="num1">Número 1:</label></td>
+                    <td><input type="text" class="form-control" id="num1"></td>
+                </tr>
+                <tr>
+                    <td><label for="num2">Número 2:</label></td>
+                    <td><input type="text" class="form-control" id="num2"></td>
+                </tr>
+                <tr>
+                    <td><label for="respuesta">Respuesta:</label></td>
+                    <td><input type="text" class="form-control" id="respuesta" readonly></td>
+                </tr>
+                <tr id="invalidNumberRow" style="display: none;">
+                    <td colspan="2" style="color: red;">Número inválido para numeración binaria.</td>
+                </tr>
+            </table>
+
+            <div class="space"></div> <!-- Espacio entre la tabla y los campos de números -->
+
+            <button onclick="calcular()" class="btn btn-primary mt-3">Calcular</button>
+        </article>
+    </div>
+
+    <!-- Agregar el script de Bootstrap y tu código JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Tu código JavaScript aquí
+        function redirigirAVentanaPrincipal() {
+            window.location.href = "ventana_principal.html";
+        }
+
+        function mostrarAvisoInvalido() {
+            document.getElementById("invalidNumberRow").style.display = "table-row";
+        }
+
+        function ocultarAvisoInvalido() {
+            document.getElementById("invalidNumberRow").style.display = "none";
+        }
+
+        function binaryToDecimal(binary) {
+            return parseInt(binary, 2);
+        }
+
+        function decimalToBinary(decimal) {
+            return decimal.toString(2);
+        }
+
+        function calcular() {
+            const num1 = document.getElementById("num1").value;
+            const num2 = document.getElementById("num2").value;
+            const operation = document.getElementById("operation").value;
+            const numSystem = document.getElementById("numSystem").value; // Obtener el tipo de numeración seleccionado
+
+            let num1Decimal, num2Decimal;
+
+            if (numSystem === "binary") {
+                // Verificar si los números ingresados son binarios válidos
+                if (!/^[01]+$/.test(num1) || !/^[01]+$/.test(num2)) {
+                    mostrarAvisoInvalido();
+                    return; // Salir de la función
+                }
+                
+                num1Decimal = binaryToDecimal(num1);
+                num2Decimal = binaryToDecimal(num2);
+                ocultarAvisoInvalido();
+            } else if (numSystem === "decimal") {
+                num1Decimal = parseInt(num1, 10);
+                num2Decimal = parseInt(num2, 10);
+                ocultarAvisoInvalido();
+            } else if (numSystem === "hexadecimal") {
+                num1Decimal = parseInt(num1, 16);
+                num2Decimal = parseInt(num2, 16);
+                ocultarAvisoInvalido();
+            } else if (numSystem === "octal") {
+                num1Decimal = parseInt(num1, 8);
+                num2Decimal = parseInt(num2, 8);
+                ocultarAvisoInvalido();
+            }
+
+            let resultado;
+
+            if (operation === "sum") {
+                resultado = num1Decimal + num2Decimal;
+            } else if (operation === "subtract") {
+                resultado = num1Decimal - num2Decimal;
+            } else if (operation === "multiply") {
+                resultado = num1Decimal * num2Decimal;
+            }
+
+            let respuesta;
+
+            if (numSystem === "binary") {
+                respuesta = decimalToBinary(resultado);
+            } else if (numSystem === "decimal") {
+                respuesta = resultado.toString();
+            } else if (numSystem === "hexadecimal") {
+                respuesta = resultado.toString(16).toUpperCase();
+            } else if (numSystem === "octal") {
+                respuesta = resultado.toString(8);
+            }
+
+            document.getElementById("respuesta").value = respuesta;
+        }
+    </script>
+</body>
+</html>
