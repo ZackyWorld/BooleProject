@@ -4,7 +4,7 @@
     <title>Sistemas Numericos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
-        /* Tu estilo personalizado si lo tienes */
+        /* Codigo Css */
         /* Estilos para el contenedor que envuelve la imagen y el banner */
         .contenedor-flex {
             display: flex;
@@ -15,7 +15,7 @@
         .imagen {
             width: 80px;
             height: 80px;
-            cursor: pointer; /* Agrega el cursor de la mano para indicar que es un enlace */
+            cursor: pointer; 
         }
 
         /* Estilos para el banner */
@@ -40,10 +40,10 @@
 
             <!-- Banner redimensionado -->
             <img class="banner" src="bannerprincipal.png" alt="Banner">
-            <!-- Aquí puedes agregar contenido dentro del banner si lo deseas -->
+
         </div>
 
-        <!-- Artículo que contiene el resto del contenido centrado -->
+        <!-- Inputs -->
         <article>
             <div class="title">Ingresa las Numeraciones a Convertir:</div>
             <div class="content">
@@ -93,11 +93,11 @@
         </article>
     </div>
 
-    <!-- Agregar el script de Bootstrap y tu código JavaScript -->
+    <!-- Código JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <script>
-        // Tu código JavaScript aquí
+        // Redirigir a pagina principal
         function redirigirAVentanaPrincipal() {
             window.location.href = "index.html";
         }
@@ -109,7 +109,7 @@
             if (sistemaOrigen === "binario" && sistemaDestino === "binario") {
                 resultado = valor;
             } else {
-                // Resto de la lógica de conversión
+                // Conversión
                 if (sistemaOrigen === "binario") {
                     if (sistemaDestino === "decimal") {
                         resultado = parseInt(valor, 2).toString(10);
